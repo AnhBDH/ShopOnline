@@ -1,0 +1,73 @@
+﻿@model PagedList.IPagedList<OShop.EF.Order>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@section heading{
+    Quản lý sản phẩm
+}
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Mã khách hàng</th>
+                        <th>Ngày tạo</th>
+                        <th>Trạng thái</th>
+                        <th>Người cập nhật</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Mã khách hàng</th>
+                        <th>Ngày tạo</th>
+                        <th>Trạng thái</th>
+                        <th>Người cập nhật</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/Admin/Order/Edit/@item.ID" class="btn btn-info btn-circle btn-sm">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>|
+                                <a href="/Admin/Order/Delete/@item.ID" class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                            <td>@item.CustomerID</td>
+                            <td>@item.CreatedDate</td>
+                            
+                            @if (item.Status == 1)
+                            {
+                                <th>Chờ xử lý</th>
+                            }
+                            else if(item.Status == 2)
+                            {
+                                <th>Đang giao hàng</th>
+                            }
+                            else if (item.Status == 3)
+                            {
+                                <th>Hoàn thành</th>
+                            }
+                            else if (item.Status == -1)
+                            {
+                                <th>Đã bị hủy</th>
+                            }
+
+                            <th>@item.ModifiedBy</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    </div>
+</div>

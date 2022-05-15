@@ -1,0 +1,153 @@
+﻿@model OShop.EF.Product
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+@section head{
+    <script src="/assets/client/js/easyResponsiveTabs.js" type="text/javascript"></script>
+    <link href="/assets/client/css/easy-responsive-tabs.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="/assets/client/css/global.css">
+    <script src="/assets/client/js/slides.min.jquery.js"></script>
+<script>
+		$(function(){
+			$('#products').slides({
+				preload: true,
+				preloadImage: 'img/loading.gif',
+				effect: 'slide, fade',
+				crossfade: true,
+				slideSpeed: 350,
+				fadeSpeed: 500,
+				generateNextPrev: true,
+				generatePagination: false
+			});
+		});
+</script>
+}
+
+<div class="content">
+    <div class="content_top">
+    </div>
+    <div class="section group">
+        <div class="cont-desc span_1_of_2">
+            <div class="product-details">
+                <div class="grid images_3_of_2">
+                    <div id="container">
+                        <div id="products_example">
+                            <div id="products">
+                                <div class="slides_container">
+                                    <a href="#" target="_blank"><img src="@Model.Image" alt=" " /></a>
+                                </div>
+                                <ul class="pagination">
+                                    <li><a href="#"><img src="@Model.Image" alt=" " /></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="desc span_3_of_2">
+                    <h2>@Model.Name</h2>
+                    <p>@Model.Description</p>
+                    <div class="price">
+                        @if (Model.PromotionPrice > 0)
+                        {
+                            <p>Giá: <span>@Model.PromotionPrice.Value.ToString("N0")</span></p>
+                            <del><span>@Model.Price.Value.ToString("N0")</span></del>
+                        }
+                        else
+                        {
+                            <p>Giá: <span>@Model.Price.Value.ToString("N0")</span></p>
+                        }
+                    </div>
+                    <div class="available"></div>
+                    <div class="share-desc">
+                        <div class="share">
+                            <p>Chia sẻ sản phẩm:</p>
+                            <ul>
+                                <li><a href="#"><img src="/assets/client/images/facebook.png" alt="" /></a></li>
+                                <li><a href="#"><img src="/assets/client/images/twitter.png" alt="" /></a></li>
+                            </ul>
+                        </div>
+                        <div class="button"><span><a href="/them-gio-hang?productId=@Model.ID">Thêm vào giỏ</a></span></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="wish-list">
+                        <ul>
+                            <li class="wish"><a href="#">Sản phẩm ưu thích</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="product_desc">
+                <div id="horizontalTab">
+                    <ul class="resp-tabs-list">
+                        <li>Thông tin sản phẩm</li>
+                        <li>Tag</li>
+                        <li>Đánh giá sản phẩm</li>
+                        <div class="clear"></div>
+                    </ul>
+                    <div class="resp-tabs-container">
+                        <div class="product-desc">
+                            <pre>@Model.Detail</pre>
+                        </div>
+                        <div class="product-tags">
+                            <p>Các tag gắn với sản phẩm</p>
+                            <h4>Tag:</h4>
+                            <div class="input-box">
+                                <input type="text" value="">
+                            </div>
+                        </div>
+                        <div class="review">
+                            <h4>......</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+    $(document).ready(function () {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true   // 100% fit in a container
+        });
+    });
+            </script>
+            <div class="content_bottom">
+                <div class="heading">
+                    <h3>Sản phẩm liên quan</h3>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="section group">
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="/chi-tiet/man-hinh-LG-31-5inch-qhd-8"><img src="/Data/files/man-hinh-lg-31_5inch4.jpg" alt=""></a>
+                    <div class="price" style="border:none">
+                        <div class="add-cart" style="float:none">
+                            <h4><a href="/them-gio-hang?productId=8">Thêm</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="/chi-tiet/man-hinh-aoc-23-8inch-5"><img src="/Data/files/feature-pic4.jpg" alt=""></a>
+                    <div class="price" style="border:none">
+                        <div class="add-cart" style="float:none">
+                            <h4><a href="/them-gio-hang?productId=5">Thêm</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rightsidebar span_3_of_1">
+            @{ Html.RenderAction("PartialViewCategoryMinMenu", "Product");}
+            <div class="subscribe">
+                
+            </div>
+            <div class="community-poll">
+            </div>
+        </div>
+    </div>
+</div>
+    </div>

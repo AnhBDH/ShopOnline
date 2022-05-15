@@ -1,0 +1,61 @@
+﻿@model PagedList.IPagedList<OShop.EF.Order>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<div class="content">
+    <div class="section group">
+        <h2>Đơn hàng của bạn</h2>
+        <hr/>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Mã đơn hàng</td>
+                    <td>Ngày tạo</td>
+                    <td>Trạng thái</td>
+                    <td>Tên người nhận</td>
+                    <td>Điện thoại</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.CreatedDate</td>
+                        @if (item.Status == 1)
+                        {
+                            <th>Đang xử lý</th>
+                        }
+                        else if (item.Status == 2)
+                        {
+                            <th>Đã giao hàng</th>
+                        }
+                        else if (item.Status == 3)
+                        {
+                            <th>Hoàn thành</th>
+                        }
+                        else if (item.Status == -1)
+                        {
+                            <th>Đã hủy</th>
+                        }
+                        <th>@item.ShipName</th>
+                        <th>@item.ShipMobile</th>
+                        @if (item.Status == 1|| item.Status == 2)
+                        {
+                            <th><a href="/huy-don-hang?@item.ID" class="btn-delete">Hủy bỏ</a>|<a href="/huy-don-hang?@item.ID" class="btn-delete">Chi tiết</a></th>
+                        }
+                        else
+                        {
+                            <th><a href="/chi-tiet-don-hang?@item.ID" class="btn-delete">Chi tiết</a></th>
+                        }
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,66 @@
+﻿@model List<OShop.Models.CartDetailViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="content">
+    <div class="section group">
+        @if (Model.Count > 0)
+        {
+            decimal tongtien = 0;
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Mã SP</td>
+                        <td>Tên SP</td>
+                        <td>Ảnh SP</td>
+                        <td>Số lượng</td>
+                        <td>Đơn giá</td>
+                        <td>Thành tiền</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Code</td>
+                            <td>@item.Name</td>
+                            <td><img src="@item.Image" width="100" /></td>
+                            <td><input type="text" class="txtQuantity" data-id="@item.IDProduct" value="@item.Quantity" /></td>
+                            <td>@item.Price.GetValueOrDefault(0).ToString("N0")</td>
+                            @{
+                                var total = item.Price.GetValueOrDefault(0) * item.Quantity;
+                                <td>@total.GetValueOrDefault(0).ToString("N0")</td>
+                                tongtien = tongtien + (decimal)total;
+                            }
+                            <td><a href="#" data-id="@item.IDProduct" class="btn-delete">Xoá</a></td>
+                        </tr>
+                    }     
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Tổng:</td>
+                        <td>@tongtien.ToString("N0")</td>
+                        <td></td>
+                    </tr>               
+                </tbody>
+            </table>
+
+            <a href="/" class="button">Tiếp tục mua hàng</a>
+            <a href="#" class="button">Cập nhật giỏ hàng</a>
+            <a href="#" class="button">Xoá giỏ hàng</a>
+            <a href="/thanh-toan" class="button">Thanh toán</a>
+        }
+        else
+        {
+            <span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng</span>
+        }
+
+    </div>
+</div>
+
+

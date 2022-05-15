@@ -1,0 +1,48 @@
+﻿@model PagedList.IPagedList<OShop.EF.Product>
+@using PagedList.Mvc;
+@{
+    var category = (OShop.EF.Category)ViewBag.Category;
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<div class="content">
+    <div class="content_top">
+        <div class="heading">
+            <h3>Sản phẩm @category.Name</h3>
+        </div>
+
+
+    </div>
+    <div class="clear"></div>
+    </div>
+    <div class="section group">
+        @foreach (var item in Model)
+        {
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="/chi-tiet/@item.MetaTitle-@item.ID"><img src="@item.Image" alt="" /></a>                
+                <div class="price-details">
+                    <div class="price-number">
+                        @if (@item.PromotionPrice > 0)
+                        {
+                            <p><span class="rupees">@item.PromotionPrice.Value.ToString("N0")</span></p>
+                            <p><del><span class="rupee">@item.Price.Value.ToString("N0")</span></del></p>
+                        }
+                        else
+                        {
+                            <p><span class="rupees">@item.Price.Value.ToString("N0")</span></p>
+                        }                        
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="/them-gio-hang?productId=@item.ID">Thêm vào giỏ</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <a href="/chi-tiet/@item.MetaTitle-@item.ID">@item.Name </a>
+
+            </div>
+        }
+    </div>
+    <div class="pagenumber">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>

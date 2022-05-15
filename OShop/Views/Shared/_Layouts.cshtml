@@ -1,0 +1,197 @@
+﻿<!--A Design by Isource
+Author: isource
+Author URL: http://isource.vn
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+@using OShop.Common;
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title> Home Shoppe Website Template | Home :: Isource</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/assets/client/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/client/css/boostrap-social.css" rel="stylesheet" />
+    <link href="/assets/client/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/client/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="/assets/client/css/jquery-ui.css" rel="stylesheet" />
+    <link href="/assets/client/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/assets/client/css/slider.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/assets/client/js/jquery-1.11.3.min.js"></script>
+    <script src="/assets/client/js/jquery-ui.js"></script>
+    <script src="/assets/client/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/client/js/move-top.js"></script>
+    <script type="text/javascript" src="/assets/client/js/easing.js"></script>
+    <script type="text/javascript" src="/assets/client/js/startstop-slider.js"></script>
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="headertop_desc">
+                <div class="call">
+                    <p><span>Cần trợ giúp?</span> hãy gọi <span class="number">0914-656-822</span></span></p>
+                </div>
+                <div class="account_desc">
+                    <ul>
+                        @{  bool condition = false;
+                            if (Session[CommonConstants.USER_CLIENT_SESSION] != null)
+                            {
+                                condition = true;
+                                var account = (OShop.Common.UserLogin)Session[CommonConstants.USER_CLIENT_SESSION];
+                            }
+                        }
+                        @if (condition)
+                        {
+                            <li>Xin chào bạn</li>
+                            <li><a href="/dang-xuat">Đăng xuất</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/dang-ky">Đăng ký</a></li>
+                            <li><a href="/dang-nhap">Đăng nhập</a></li>
+                        }                        
+                        <li><a href="/don-hang">Vận chuyển</a></li>
+                        <li><a href="/thanh-toan">Thanh toán</a></li>
+                        <li><a href="#">Tài khoản</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="header_top">
+                <div class="logo">
+                    <a href="index.html"><img src="/assets/client/images/logo.png" alt="" /></a>
+                </div>
+                <div class="cart">
+                    <p>
+                        Chào mừng tới của hàng! <a href="/gio-hang/"><span>Giỏ hàng:</span></a><div id="dd" class="wrapper-dropdown-2">
+                            0 item(s)
+                            <ul class="dropdown">
+                                <li>bạn không có sản phẩm nào trong giỏ hàng </li>
+                            </ul>
+                        </div>
+                    </p>
+                </div>
+                <script type="text/javascript">
+            function DropDown(el) {
+                                    this.dd = el;
+                                    this.initEvents();
+                                }
+                                DropDown.prototype = {
+				initEvents : function() {
+                                    var obj = this;
+
+                                    obj.dd.on('click', function(event){
+						$(this).toggleClass('active');
+                        event.stopPropagation();
+                                });
+				}
+                        }
+
+			$(function() {
+
+                            var dd = new DropDown( $('#dd') );
+
+				$(document).click(function() {
+					// all dropdowns
+					$('.wrapper-dropdown-2').removeClass('active');
+                            });
+
+                        });
+
+                </script>
+                <div class="clear"></div>
+            </div>
+            <div class="header_bottom">
+                <div class="menu">
+                    <ul>
+                        <li class="active"><a href="/">Trang chủ</a></li>
+                        <li><a href="/gioi-thieu">Giới thiệu</a></li>
+                        <li><a href="/don-hang">Vận chuyển</a></li>
+                        <li><a href="/lien-he">Liên hệ</a></li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+                <div class="search_box">
+                    <form>
+                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
+                    </form>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @RenderSection("slide", required: false)
+            
+        </div>
+        <div class="main">
+            @RenderBody()
+        </div>
+    </div>
+    <div class="footer">
+        <div class="wrap">
+            <div class="section group">
+                <div class="col_1_of_4 span_1_of_4">
+                    <h4>THÔNG TIN</h4>
+                    <ul>
+                        <li><a href="/gioi-thieu">Giới thiệu</a></li>
+                        <li><a href="/lien-he">Liên hệ</a></li>
+                        <li><a href="#">Tìm kiếm</a></li>
+                        <li><a href="/don-hang">Đơn hàng và trả hàng</a></li>
+                        <li><a href="/lien-he">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col_1_of_4 span_1_of_4">
+                    <h4>Vì sao chọn tôi</h4>
+                    <ul>
+                        <li><a href="/gioi-thieu">Giới thiệu</a></li>
+                        <li><a href="/lien-he">Liên hệ</a></li>
+                        <li><a href="#">Tìm kiếm</a></li>
+                        <li><a href="/lien-he">Map</a></li>
+                        <li><a href="#">Cụm từ tìm kiếm</a></li>
+                    </ul>
+                </div>
+                <div class="col_1_of_4 span_1_of_4">
+                    <h4>Tài khoản</h4>
+                    <ul>
+                        <li><a href="/dang-nhap">Đăng nhập</a></li>
+                        <li><a href="/gio-hang">Giỏ hàng</a></li>
+                        <li><a href="/don-hang">Theo dõi đơn hàng</a></li>
+                        <li><a href="/lien-he">Trợ giúp</a></li>
+                    </ul>
+                </div>
+                <div class="col_1_of_4 span_1_of_4">
+                    <h4>Hot Line</h4>
+                    <ul>
+                        <li><span>0914-656-822</span></li>
+                        <li><span>086-9305-148</span></li>
+                    </ul>
+                    <div class="social-icons">
+                        <h4>Theo dõi cửa hàng</h4>
+                        <ul>
+                            <li><a href="#" target="_blank"><img src="/assets/client/images/facebook.png" alt="" /></a></li>
+                            <li><a href="#" target="_blank"><img src="/assets/client/images/twitter.png" alt="" /></a></li>
+                            <li><a href="#" target="_blank"><img src="/assets/client/images/skype.png" alt="" /> </a></li>
+                            <li><a href="#" target="_blank"> <img src="/assets/client/images/dribbble.png" alt="" /></a></li>
+                            <li><a href="#" target="_blank"> <img src="/assets/client/images/linkedin.png" alt="" /></a></li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy_right">
+            <p>Shop Online © All rights Reseverd | Design by  <a href="https://github.com/">Bùi Đức Anh</a> </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$().UItoTop({ easingType: 'easeOutQuart' });
+
+		});
+    </script>
+    @RenderSection("jspooter",required: false)
+    <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+</body>
+</html>
+

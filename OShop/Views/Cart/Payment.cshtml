@@ -1,0 +1,89 @@
+﻿@model List<OShop.Models.CartDetailViewModel>
+@{
+
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+
+    var UseDetail = (OShop.EF.User)ViewBag.UserDetail;
+}
+<div class="content">
+    <div class="section group">
+        @if (Model.Count > 0)
+        {
+            decimal tongtien = 0;
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Mã SP</td>
+                        <td>Tên SP</td>
+                        <td>Ảnh SP</td>
+                        <td>Số lượng</td>
+                        <td>Đơn giá</td>
+                        <td>Thành tiền</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Code</td>
+                            <td>@item.Name</td>
+                            <td><img src="@item.Image" width="100" /></td>
+                            <td><input type="text" class="txtQuantity" data-id="@item.IDProduct" value="@item.Quantity" /></td>
+                            <td>@item.Price.GetValueOrDefault(0).ToString("N0")</td>
+                            @{
+                                var total = item.Price.GetValueOrDefault(0) * item.Quantity;
+                                <td>@total.GetValueOrDefault(0).ToString("N0")</td>
+                                tongtien = tongtien + (decimal)total;
+                            }
+                        </tr>
+                                }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Tổng:</td>
+                        <td>@tongtien.ToString("N0")</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+                <div class="col-md-6">
+                    @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+                    {
+                        <div class="form-group">
+                            <label>Người nhận</label>
+                            <input name="shipName" class="form-control" value="@UseDetail.Name"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Điện thoại</label>
+                            <input name="mobile" class="form-control" value="@UseDetail.Phone"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input name="address" class="form-control" value="@UseDetail.Address"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input name="email" class="form-control" value="@UseDetail.Email"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Ghi chú</label>
+                            <input name="note" class="form-control" />
+                        </div>
+                        <button type="submit" class="button">Gửi đơn hàng</button>
+                    }
+                </div>
+                                }
+                                else
+                                {
+                                    <span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng để thanh toán</span>
+                                }
+            </div>
+
+                                
+
+</div>
+

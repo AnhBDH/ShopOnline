@@ -1,0 +1,76 @@
+﻿@model PagedList.IPagedList<OShop.EF.Product>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@section heading{
+    Quản lý sản phẩm
+}
+<a href="/Admin/Product/Create" class="btn btn-primary btn-icon-split">
+    <span class="text">Thêm sản phẩm mới</span>
+</a>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên</th>
+                        <th>Mã code</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Giảm giá</th>
+                        <th>Hiện thị</th>
+                        <th>Số lượng</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên</th>
+                        <th>Mã code</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Giảm giá</th>
+                        <th>Hiện thị</th>
+                        <th>Số lượng</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/Admin/Product/Edit/@item.ID" class="btn btn-info btn-circle btn-sm">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>|
+                                <a href="/Admin/Product/Delete/@item.ID" class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                            <td>@item.Name</td>
+                            <td>@item.Code</td>
+                            <td><img src="@item.Image" width="100" /></td>
+                            <th>@item.Price</th>
+                            <th>@item.PromotionPrice</th>
+                            @if (item.Status == true)
+                            {
+                                <th>Hiện</th>
+                            }
+                            else
+                            {
+                                <th>Ẩn</th>
+                            }
+
+                            <th>@item.Quantity</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    </div>
+</div>
